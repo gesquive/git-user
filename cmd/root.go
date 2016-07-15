@@ -51,7 +51,7 @@ func init() {
 		cli.ShortenHomeDir(defaultProjectPath), "The project to get/set the user")
 	RootCmd.PersistentFlags().BoolVarP(&logDebug, "debug", "D", false,
 		"Write debug messages to console")
-	RootCmd.PersistentFlags().BoolVarP(&showVersion, "version", "v", false,
+	RootCmd.PersistentFlags().BoolVarP(&showVersion, "version", "V", false,
 		"Show the version and exit")
 
 	RootCmd.PersistentFlags().MarkHidden("debug")
