@@ -1,5 +1,3 @@
-// Copyright © 2016 Gus Esquivel <gesquive@gmail.com>
-
 package cmd
 
 import (
