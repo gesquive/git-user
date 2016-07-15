@@ -37,8 +37,7 @@ func setRun(cmd *cobra.Command, args []string) {
 	if profile.IsEmpty() {
 		cli.Infof("There is no profile named '%s' in the config", name)
 		cli.Infof("You can add the profile with:")
-		//TODO: replace the app name with the detected app name
-		cli.Infof("  '%s add %s <name> <email>'", "git-user", "name")
+		cli.Infof("  '%s add %s NAME EMAIL'", appName, name)
 	} else {
 		if global {
 			git.SetGlobalUser(profile.User, profile.Email)

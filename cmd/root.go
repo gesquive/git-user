@@ -14,6 +14,7 @@ var gitRepo *git.Repo
 var cfgFilePath string
 var projectPath string
 var displayVersion string
+var appName string
 
 var logDebug bool
 var showVersion bool
@@ -56,7 +57,6 @@ func init() {
 	RootCmd.PersistentFlags().MarkHidden("debug")
 }
 
-// initConfig reads in config file and ENV variables if set.
 func initConfig() {
 	if logDebug {
 		cli.PrintDebug = true
@@ -64,6 +64,10 @@ func initConfig() {
 	if showVersion {
 		cli.Infof(displayVersion)
 		os.Exit(0)
+	}
+	appName = os.Args[0]
+	if appName == "git-user" {
+		appName = "git user"
 	}
 	// TODO: Paths should be expanded after user input, not before
 	cli.Debugf("cfgFilePath='%s' projectPath='%s'", cfgFilePath, projectPath)
