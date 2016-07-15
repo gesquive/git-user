@@ -13,6 +13,7 @@ var userProfileConfig *git.UserProfileConfig
 var gitRepo *git.Repo
 var cfgFilePath string
 var projectPath string
+var displayVersion string
 
 var logDebug bool
 var showVersion bool
@@ -24,18 +25,13 @@ var RootCmd = &cobra.Command{
 	Use:   "git-user",
 	Short: "Allows you to save multiple user profiles and set them as git project defaults",
 	Long:  `git-user lets you quickly switch between multiple git user profiles`,
-	Run: func(cmd *cobra.Command, args []string) {
-		if showVersion {
-			fmt.Println(displayVersion)
-			os.Exit(0)
-		}
-		listRun(cmd, args)
-	},
+	Run:   listRun,
 }
 
 // Execute adds all child commands to the root command sets flags appropriately.
 // This is called by main.main(). It only needs to happen once to the rootCmd.
-func Execute() {
+func Execute(version string) {
+	displayVersion = version
 	if err := RootCmd.Execute(); err != nil {
 		fmt.Println(err)
 		os.Exit(-1)
@@ -66,7 +62,7 @@ func initConfig() {
 		cli.PrintDebug = true
 	}
 	if showVersion {
-		cli.Infof("git-user 0.1.0-alpha")
+		cli.Infof(displayVersion)
 		os.Exit(0)
 	}
 	// TODO: Paths should be expanded after user input, not before
