@@ -42,13 +42,13 @@ func Execute(version string) {
 func init() {
 	cobra.OnInitialize(initConfig)
 
-	defaultConfigPath := cli.ExpandHomeDir("~/.git-profiles")
+	defaultConfigPath := "~/.git-profiles"
 	defaultProjectPath, _ := os.Getwd()
 
-	RootCmd.PersistentFlags().StringVarP(&cfgFilePath, "config", "c", defaultConfigPath,
-		"config file")
-	RootCmd.PersistentFlags().StringVarP(&projectPath, "path", "p", defaultProjectPath,
-		"The project to get/set the user")
+	RootCmd.PersistentFlags().StringVarP(&cfgFilePath, "config", "c",
+		cli.ShortenHomeDir(defaultConfigPath), "config file")
+	RootCmd.PersistentFlags().StringVarP(&projectPath, "path", "p",
+		cli.ShortenHomeDir(defaultProjectPath), "The project to get/set the user")
 	RootCmd.PersistentFlags().BoolVarP(&logDebug, "debug", "D", false,
 		"Write debug messages to console")
 	RootCmd.PersistentFlags().BoolVarP(&showVersion, "version", "v", false,
@@ -69,7 +69,9 @@ func initConfig() {
 	if appName == "git-user" {
 		appName = "git user"
 	}
-	// TODO: Paths should be expanded after user input, not before
+
+	cfgFilePath = cli.ExpandHomeDir(cfgFilePath)
+	projectPath = cli.ExpandHomeDir(projectPath)
 	cli.Debugf("cfgFilePath='%s' projectPath='%s'", cfgFilePath, projectPath)
 	var err error
 	userProfileConfig, err = git.NewUserProfileConfig(cfgFilePath)
