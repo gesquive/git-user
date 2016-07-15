@@ -1,0 +1,8 @@
+/bin/*
+vendor/*
+pkg/
+dist/
+
+*.bak
+
+git-user
