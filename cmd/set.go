@@ -19,7 +19,7 @@ var setCmd = &cobra.Command{
 
 func init() {
 	RootCmd.AddCommand(setCmd)
-	setCmd.PersistentFlags().BoolVarP(&global, "global", "g", false,
+	setCmd.PersistentFlags().BoolVarP(&global, "global", "G", false,
 		"Apply the profile to the global config")
 
 }

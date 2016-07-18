@@ -17,7 +17,7 @@ var remCmd = &cobra.Command{
 
 func init() {
 	RootCmd.AddCommand(remCmd)
-	remCmd.PersistentFlags().BoolVarP(&global, "global", "g", false,
+	remCmd.PersistentFlags().BoolVarP(&global, "global", "G", false,
 		"Remove the profile from the global config")
 }
 
