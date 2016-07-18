@@ -1,0 +1,26 @@
+hash: ddf69367e70bcb1e918740727da82f72a5ec0ede83123f20a17ce2ccfd6bc3ff
+updated: 2016-07-15T22:45:17.554231504-05:00
+imports:
+- name: github.com/codegangsta/inject
+  version: 33e0aa1cb7c019ccc3fbe049a8262a6403d30504
+- name: github.com/codeskyblue/go-sh
+  version: ceb46ec4630a726eeed51d0a70066c9e1102c48f
+- name: github.com/fatih/color
+  version: 87d4004f2ab62d0d255e0a38f1680aa534549fe3
+- name: github.com/go-ini/ini
+  version: cf53f9204df4fbdd7ec4164b57fa6184ba168292
+- name: github.com/inconshreveable/mousetrap
+  version: 76626ae9c91c4f2a10f34cad8ce83ea42c93bb75
+- name: github.com/mattn/go-colorable
+  version: 9056b7a9f2d1f2d96498d6d146acd1f9d5ed3d59
+- name: github.com/mattn/go-isatty
+  version: 56b76bdf51f7708750eac80fa38b952bb9f32639
+- name: github.com/spf13/cobra
+  version: 1238ba19d24b0b9ceee2094e1cb31947d45c3e86
+- name: github.com/spf13/pflag
+  version: 367864438f1b1a3c7db4da06a2f55b144e6784e0
+- name: golang.org/x/sys
+  version: b518c298ac9dc94b6ac0757394f50d10c5dfa25a
+  subpackages:
+  - unix
+devImports: []

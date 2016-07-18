@@ -1,0 +1,6 @@
+package: github.com/gesquive/git-user
+import:
+- package: github.com/codeskyblue/go-sh
+- package: github.com/fatih/color
+- package: github.com/go-ini/ini
+- package: github.com/spf13/cobra
