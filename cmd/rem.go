@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"github.com/gesquive/git-user/cli"
+	cli "github.com/gesquive/cli-log"
 	"github.com/gesquive/git-user/git"
 	"github.com/spf13/cobra"
 	"os"
@@ -24,7 +24,7 @@ func init() {
 func remRun(cmd *cobra.Command, args []string) {
 
 	if len(args) == 1 {
-		cli.Infof(cli.Yellow("If you are trying to delete a profile, use the 'del' command.\n"))
+		cli.Info(cli.Yellow("If you are trying to delete a profile, use the 'del' command.\n"))
 	}
 	if len(args) > 0 {
 		cmd.Usage()
@@ -32,12 +32,12 @@ func remRun(cmd *cobra.Command, args []string) {
 	}
 
 	if global {
-		cli.Debugf("Removing global user")
+		cli.Debug("Removing global user")
 		git.RemoveGlobalUser()
-		cli.Infof("Removed user info from the global config")
+		cli.Info("Removed user info from the global config")
 	} else {
-		cli.Debugf("Removing project user")
+		cli.Debug("Removing project user")
 		gitRepo.RemoveUser()
-		cli.Infof("Removed user info from '%s'", gitRepo.Name())
+		cli.Info("Removed user info from '%s'", gitRepo.Name())
 	}
 }

@@ -3,7 +3,7 @@ package cmd
 import (
 	"os"
 
-	"github.com/gesquive/git-user/cli"
+	cli "github.com/gesquive/cli-log"
 	"github.com/spf13/cobra"
 )
 
@@ -26,7 +26,7 @@ func delRun(cmd *cobra.Command, args []string) {
 		os.Exit(3)
 	}
 	name := args[0]
-	cli.Debugf("Deleting profile %s", name)
+	cli.Debug("Deleting profile %s", name)
 	userProfileConfig.DeleteProfile(name)
-	cli.Infof("Deleted profile '%s'", name)
+	cli.Info("Deleted profile '%s'", name)
 }

@@ -3,7 +3,7 @@ package cmd
 import (
 	"os"
 
-	"github.com/gesquive/git-user/cli"
+	cli "github.com/gesquive/cli-log"
 	"github.com/spf13/cobra"
 )
 
@@ -28,7 +28,7 @@ func addRun(cmd *cobra.Command, args []string) {
 	name := args[0]
 	user := args[1]
 	email := args[2]
-	cli.Debugf("Adding profile %s: '%s' <%s>", name, user, email)
+	cli.Debug("Adding profile %s: '%s' <%s>", name, user, email)
 	userProfileConfig.AddProfile(name, user, email)
-	cli.Infof("Added profile '%s'", name)
+	cli.Info("Added profile '%s'", name)
 }

@@ -5,7 +5,7 @@ import "os"
 import "strings"
 import "github.com/codeskyblue/go-sh"
 import "github.com/go-ini/ini"
-import "github.com/gesquive/git-user/cli"
+import "github.com/gesquive/git-user/user"
 
 // UserProfileConfig is the config file we want to edit
 type UserProfileConfig struct {
@@ -15,15 +15,15 @@ type UserProfileConfig struct {
 
 // NewUserProfileConfig initializes and returns a new UserProfileConfig
 func NewUserProfileConfig(hintPath string) (*UserProfileConfig, error) {
-	defaultProfilePath := cli.ExpandHomeDir("~/.git_profiles")
+	defaultProfilePath := user.ExpandHomeDir("~/.git_profiles")
 	config := new(UserProfileConfig)
 
 	if _, err := os.Stat(hintPath); err == nil {
-		config.path = cli.ExpandHomeDir(hintPath)
+		config.path = user.ExpandHomeDir(hintPath)
 	} else {
 		out, err := sh.Command("git", "config", "user.profiles").Output()
 		if err == nil && len(out) > 0 {
-			config.path = cli.ExpandHomeDir(strings.TrimSpace(string(out)))
+			config.path = user.ExpandHomeDir(strings.TrimSpace(string(out)))
 		} else {
 			// Then there is no path in the gitconfig, set it
 			sh.Command("git", "config", "--global", "user.profiles", defaultProfilePath)

@@ -4,8 +4,9 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/gesquive/git-user/cli"
+	cli "github.com/gesquive/cli-log"
 	"github.com/gesquive/git-user/git"
+	"github.com/gesquive/git-user/user"
 	"github.com/spf13/cobra"
 )
 
@@ -47,9 +48,9 @@ func init() {
 	defaultProjectPath, _ := os.Getwd()
 
 	RootCmd.PersistentFlags().StringVarP(&cfgFilePath, "config", "c",
-		cli.ShortenHomeDir(defaultConfigPath), "config file")
+		user.ShortenHomeDir(defaultConfigPath), "config file")
 	RootCmd.PersistentFlags().StringVarP(&projectPath, "path", "p",
-		cli.ShortenHomeDir(defaultProjectPath), "The project to get/set the user")
+		user.ShortenHomeDir(defaultProjectPath), "The project to get/set the user")
 	RootCmd.PersistentFlags().StringVarP(&gitPath, "git-path", "g", "git",
 		"The git executable to use")
 	RootCmd.PersistentFlags().BoolVarP(&logDebug, "debug", "D", false,
@@ -62,13 +63,13 @@ func init() {
 
 func initConfig() {
 	if logDebug {
-		cli.PrintDebug = true
+		cli.SetLogLevel(cli.LevelDebug)
 	}
 	if showVersion {
-		cli.Infof(displayVersion)
+		cli.Info(displayVersion)
 		os.Exit(0)
 	}
-	cli.Debugf("Running with debug turned on")
+	cli.Debug("Running with debug turned on")
 
 	appName = os.Args[0]
 	if appName == "git-user" {
@@ -77,29 +78,29 @@ func initConfig() {
 
 	git.SetGitPath(gitPath)
 	if !git.Exists() {
-		cli.Infof("Could not find a valid git executable")
-		cli.Errorf("'%s' was not found", gitPath)
+		cli.Info("Could not find a valid git executable")
+		cli.Error("'%s' was not found", gitPath)
 		os.Exit(5)
 	}
 	gitVersion := git.Version()
 	if len(gitVersion) == 0 {
-		cli.Infof("Git version is not valid")
-		cli.Errorf("The git executable found might not be valid")
+		cli.Info("Git version is not valid")
+		cli.Error("The git executable found might not be valid")
 		os.Exit(6)
 	}
-	cli.Debugf("gitPath=%s", gitPath)
-	cli.Debugf("gitVersion=%s", gitVersion)
+	cli.Debug("gitPath=%s", gitPath)
+	cli.Debug("gitVersion=%s", gitVersion)
 
-	cfgFilePath = cli.ExpandHomeDir(cfgFilePath)
-	projectPath = cli.ExpandHomeDir(projectPath)
-	cli.Debugf("configPath='%s'", cfgFilePath)
-	cli.Debugf("projectPath='%s'", projectPath)
+	cfgFilePath = user.ExpandHomeDir(cfgFilePath)
+	projectPath = user.ExpandHomeDir(projectPath)
+	cli.Debug("configPath='%s'", cfgFilePath)
+	cli.Debug("projectPath='%s'", projectPath)
 	var err error
 	userProfileConfig, err = git.NewUserProfileConfig(cfgFilePath)
 	if err != nil {
-		cli.Errorf("%v", err)
+		cli.Error("%v", err)
 		os.Exit(2)
 	}
-	cli.Debugf("profileConfigPath=%s", userProfileConfig.Path())
+	cli.Debug("profileConfigPath=%s", userProfileConfig.Path())
 	gitRepo = git.NewGitRepo(projectPath)
 }

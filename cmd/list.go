@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"github.com/gesquive/git-user/cli"
+	cli "github.com/gesquive/cli-log"
 	"github.com/gesquive/git-user/git"
 	"github.com/spf13/cobra"
 )
@@ -20,10 +20,10 @@ func init() {
 
 func listRun(cmd *cobra.Command, args []string) {
 	if gitRepo.HasUserSet() {
-		cli.Infof("Project Profile:")
-		cli.Infof("  Path: %s", cli.Green(projectPath))
+		cli.Info("Project Profile:")
+		cli.Info("  Path: %s", cli.Green(projectPath))
 	} else {
-		cli.Infof("Global Profile:")
+		cli.Info("Global Profile:")
 	}
 	user, email := git.GetUser()
 	if len(user) == 0 {
@@ -32,19 +32,19 @@ func listRun(cmd *cobra.Command, args []string) {
 	if len(email) == 0 {
 		email = cli.Red("N/A")
 	}
-	cli.Infof("  User: %s <%s>", cli.Green(user), cli.Blue(email))
-	cli.Infof("")
+	cli.Info("  User: %s <%s>", cli.Green(user), cli.Blue(email))
+	cli.Info("")
 
 	profiles := userProfileConfig.GetAllProfiles()
 	if len(profiles) == 0 {
-		cli.Infof("There are no profiles in your config.")
-		cli.Infof("  Add a profile with \"%s add <profile> <name> <email>\"",
+		cli.Info("There are no profiles in your config.")
+		cli.Info("  Add a profile with \"%s add <profile> <name> <email>\"",
 			"git user")
-		cli.Infof("Type \"{} --help\" for more info.")
+		cli.Info("Type \"{} --help\" for more info.")
 	} else {
-		cli.Infof("Saved Profiles:")
+		cli.Info("Saved Profiles:")
 		for _, profile := range profiles {
-			cli.Infof("  %s: %s", cli.Yellow(profile.Name), profile.String())
+			cli.Info("  %s: %s", cli.Yellow(profile.Name), profile.String())
 		}
 	}
 }

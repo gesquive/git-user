@@ -1,5 +1,5 @@
 hash: ddf69367e70bcb1e918740727da82f72a5ec0ede83123f20a17ce2ccfd6bc3ff
-updated: 2016-07-15T22:45:17.554231504-05:00
+updated: 2016-07-20T08:28:32.416570407-05:00
 imports:
 - name: github.com/codegangsta/inject
   version: 33e0aa1cb7c019ccc3fbe049a8262a6403d30504
@@ -7,6 +7,8 @@ imports:
   version: ceb46ec4630a726eeed51d0a70066c9e1102c48f
 - name: github.com/fatih/color
   version: 87d4004f2ab62d0d255e0a38f1680aa534549fe3
+- name: github.com/gesquive/cli-log
+  version: 7303a9ac21170a6dcbfd316052762fe513456380
 - name: github.com/go-ini/ini
   version: cf53f9204df4fbdd7ec4164b57fa6184ba168292
 - name: github.com/inconshreveable/mousetrap

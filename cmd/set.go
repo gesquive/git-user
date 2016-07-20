@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"github.com/gesquive/git-user/cli"
+	cli "github.com/gesquive/cli-log"
 	"github.com/gesquive/git-user/git"
 	"github.com/spf13/cobra"
 	"os"
@@ -30,20 +30,20 @@ func setRun(cmd *cobra.Command, args []string) {
 		os.Exit(3)
 	}
 	name := args[0]
-	cli.Debugf("Setting profile %s", name)
+	cli.Debug("Setting profile %s", name)
 	profile := userProfileConfig.GetProfile(name)
 	if profile.IsEmpty() {
-		cli.Infof("There is no profile named '%s' in the config", name)
-		cli.Infof("You can add the profile with:")
-		cli.Infof("  '%s add %s NAME EMAIL'", appName, name)
+		cli.Info("There is no profile named '%s' in the config", name)
+		cli.Info("You can add the profile with:")
+		cli.Info("  '%s add %s NAME EMAIL'", appName, name)
 	} else {
 		if global {
 			git.SetGlobalUser(profile.User, profile.Email)
-			cli.Infof("The global user has been set too '%s <%s>'",
+			cli.Info("The global user has been set too '%s <%s>'",
 				profile.User, profile.Email)
 		} else {
 			gitRepo.SetUser(profile.User, profile.Email)
-			cli.Infof("The user for the '%s' repository has been set too '%s <%s>'",
+			cli.Info("The user for the '%s' repository has been set too '%s <%s>'",
 				gitRepo.Name(), profile.User, profile.Email)
 		}
 	}

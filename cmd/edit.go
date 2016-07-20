@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"github.com/gesquive/git-user/cli"
+	cli "github.com/gesquive/cli-log"
 	"github.com/spf13/cobra"
 	"os"
 )
@@ -27,7 +27,7 @@ func editRun(cmd *cobra.Command, args []string) {
 	name := args[0]
 	user := args[1]
 	email := args[2]
-	cli.Debugf("Editing profile %s: '%s' <%s>", name, user, email)
+	cli.Debug("Editing profile %s: '%s' <%s>", name, user, email)
 	userProfileConfig.AddProfile(name, user, email)
-	cli.Infof("Edited profile '%s'", name)
+	cli.Info("Edited profile '%s'", name)
 }
