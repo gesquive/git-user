@@ -99,6 +99,5 @@ This package is made available under an MIT-style license. See LICENSE.
 
 PRs are always welcome!
 
-
-<!-- TODO: Generate a manpage -->
-<!-- TODO: Include a detailed install script -->
+<!-- TODO: Include a detailed install script in dist -->
+<!-- TODO: Include man page install in install script -->

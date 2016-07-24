@@ -44,8 +44,9 @@ func Execute(version string) {
 func init() {
 	cobra.OnInitialize(initConfig)
 
+	//TODO: Perform some sort of ENV var expansion to help with documentation and help
 	defaultConfigPath := "~/.git-profiles"
-	defaultProjectPath, _ := os.Getwd()
+	defaultProjectPath := "."
 
 	RootCmd.PersistentFlags().StringVarP(&cfgFilePath, "config", "c",
 		user.ShortenHomeDir(defaultConfigPath), "config file")
@@ -79,7 +80,7 @@ func initConfig() {
 	git.SetGitPath(gitPath)
 	if !git.Exists() {
 		cli.Info("Could not find a valid git executable")
-		cli.Error("'%s' was not found", gitPath)
+		cli.Errorf("'%s' was not found\n", gitPath)
 		os.Exit(5)
 	}
 	gitVersion := git.Version()
@@ -98,7 +99,7 @@ func initConfig() {
 	var err error
 	userProfileConfig, err = git.NewUserProfileConfig(cfgFilePath)
 	if err != nil {
-		cli.Error("%v", err)
+		cli.Errorf("%v\n", err)
 		os.Exit(2)
 	}
 	cli.Debug("profileConfigPath=%s", userProfileConfig.Path())

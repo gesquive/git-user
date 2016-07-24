@@ -47,6 +47,7 @@ help:
 	@echo '    make test     Run tests on a compiled project'
 	@echo '    make install  Install binary'
 	@echo '    make depends  Download dependencies'
+	@echo '    make docs     Creates documentation'
 	@echo '    make fmt      Reformat the source tree with gofmt'
 	@echo '    make clean    Clean the directory tree'
 	@echo '    make dist     Cross compile the full distribution'
@@ -60,6 +61,7 @@ build:
 install: build
 	install -d ${DESTDIR}/usr/local/bin/
 	install -m 755 ./${BIN_NAME} ${DESTDIR}/usr/local/bin/${BIN_NAME}
+	install -m 644 ./man/*.1 ${DESTDIR}/usr/local/share/man/man1/
 
 depends:
 	${GOCC} get -u github.com/Masterminds/glide
@@ -73,6 +75,7 @@ clean:
 	rm -f ./${BIN_NAME}.test
 	rm -f ./${BIN_NAME}
 	rm -rf ./dist
+	rm -f ./genman/genman
 
 bootstrap-dist:
 	${GOCC} get -u github.com/mitchellh/gox
@@ -92,6 +95,11 @@ dist: build-all
 	$(FIND_DIST) zip -r ${PROJECT_NAME}-${VERSION}-{}.zip {} \; && \
 	cd ..
 
+docs:
+	cd genman && ${GOCC} build -ldflags "-X main.version=${VERSION}"
+	mkdir -p man
+	genman/genman ./man
+
 fmt:
 	find . -name '*.go' -not -path './.vendor/*' -exec gofmt -w=true {} ';'
 
@@ -103,4 +111,4 @@ link:
 	fi
 
 
-.PHONY: build help test install depends clean bootstrap-dist build-all dist fmt link
+.PHONY: build help test install depends clean bootstrap-dist build-all dist docs fmt link
