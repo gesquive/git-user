@@ -13,7 +13,7 @@ This project requires go1.6 to compile. Just run `go get -u github.com/gesquive/
 Optionally you can run `make install` to build and copy the executable to `/usr/local/bin/` with correct permissions.
 
 ### Download
-Alternately, you can download the latest release for your platform from [github](https://github.com/gesquive/git-user/releases).
+Alternately, you can download the latest release for your platform from [github](https://github.com/gesquive/git-user/releases/latest).
 
 Once you have an executable, make sure to copy it somewhere on your path like `/usr/local/bin` or `C:/Program Files/`.
 If on a \*nix/mac system, make sure to run `chmod +x /path/to/git-user`.
@@ -55,35 +55,36 @@ Hidden Flags:
 ```console
 $ cd /path/to/git/project
 
-# add a home profile for Tobe
-$ git user add home "Tobe Developer" tobe@home.com
-Added profile 'test'
+# add a work profile for Henry
+$ git user add work "Dr. Henry Jekyll" henry@jekyll.com
+Added profile 'work'
 
-# add a work profile for Tobe
-$ git user add work "Tobe A Developer" tobe@work.com
+# add a personal profile for Edward
+$ git user add home "Edward Hyde" hyde@night.com
+Added profile 'home'
 
 # list out our saved profiles
 $ git user list
 Global Profile:
-  User: Tobe <tobe@default.com>
+  User: Henry <hjekyll@gmail.com>
 
 Saved Profiles:
-  home: Tobe Developer <tobe@home.com>
-  work: Tobe A Developer <tobe@work.com>
+  home: Edward Hyde <hyde@night.com>
+  work: Dr. Henry Jekyll <henry@jekyll.com>
 
 # set the current git repository user to the home profile
 $ git user set home
-The user for the 'project' repository has been set too 'Tobe Developer <tobe@home.com>'
+The user for the 'project' repository has been set too 'Edward Hyde <hyde@night.com>'
 
 # list profiles again, notice how the current repository profile is now set
 $ git user
 Project Profile:
   Path: /path/to/git/project
-  User: Tobe Developer <tobe@home.com>
+  User: Edward Hyde <hyde@night.com>
 
 Saved Profiles:
-  home: Tobe Developer <tobe@home.com>
-  work: Tobe A Developer <tobe@work.com>
+  home: Edward Hyde <hyde@night.com>
+  work: Dr. Henry Jekyll <henry@jekyll.com>
 ```
 
 
