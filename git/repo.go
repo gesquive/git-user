@@ -23,7 +23,12 @@ func (r Repo) Path() string {
 
 // Name returns the name of the repo, this is just the base folder name
 func (r Repo) Name() string {
-	return filepath.Base(r.path)
+	absPath := r.path
+	absPath, err := filepath.Abs(r.path)
+	if err != nil {
+		absPath = r.path
+	}
+	return filepath.Base(absPath)
 }
 
 // HasUserSet returns if repo has a user set
