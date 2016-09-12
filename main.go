@@ -5,7 +5,7 @@ import "fmt"
 import "path/filepath"
 import "github.com/gesquive/git-user/cmd"
 
-var version = "v2.0.1"
+var version = "v2.0.3"
 var dirty = ""
 
 func main() {
