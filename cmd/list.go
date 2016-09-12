@@ -4,6 +4,7 @@ import (
 	cli "github.com/gesquive/cli-log"
 	"github.com/gesquive/git-user/git"
 	"github.com/spf13/cobra"
+	"path/filepath"
 )
 
 var listCmd = &cobra.Command{
@@ -21,7 +22,11 @@ func init() {
 func listRun(cmd *cobra.Command, args []string) {
 	if gitRepo.HasUserSet() {
 		cli.Info("Project Profile:")
-		cli.Info("  Path: %s", cli.Green(projectPath))
+		fullPath, err := filepath.Abs(filepath.Clean(projectPath))
+		if err != nil {
+			fullPath = projectPath
+		}
+		cli.Info("  Path: %s", cli.Green(fullPath))
 	} else {
 		cli.Info("Global Profile:")
 	}
