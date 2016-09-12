@@ -7,7 +7,7 @@
 GOCC := go
 
 # Program version
-VERSION := $(shell git describe --always --tags)
+VERSION ?= $(shell git describe --always --tags)
 
 # Binary name for bintray
 BIN_NAME=git-user
@@ -35,6 +35,8 @@ GIT_DIRTY=$(shell test -n "`git status --porcelain`" && echo "+CHANGES" || true)
 INSTALL_PATH=$(GOPATH)/${REPO_HOST_URL}/${OWNER}/${PROJECT_NAME}
 
 FIND_DIST:=find * -type d -exec
+
+BUILD_DIR=dist
 
 default: build
 
@@ -88,12 +90,12 @@ build-all: bootstrap-dist
 	-output="dist/{{.OS}}-{{.Arch}}/{{.Dir}}" .
 
 dist: build-all
-	cd dist && \
-	$(FIND_DIST) cp ../LICENSE {} \; && \
-	$(FIND_DIST) cp ../README.md {} \; && \
-	$(FIND_DIST) tar -zcf ${PROJECT_NAME}-${VERSION}-{}.tar.gz {} \; && \
-	$(FIND_DIST) zip -r ${PROJECT_NAME}-${VERSION}-{}.zip {} \; && \
-	cd ..
+	install/dist.sh "linux-386" "${PROJECT_NAME}-${VERSION}-linux-x32"
+	install/dist.sh "linux-amd64" "${PROJECT_NAME}-${VERSION}-linux-x64"
+	install/dist.sh "darwin-386" "${PROJECT_NAME}-${VERSION}-osx-x32"
+	install/dist.sh "darwin-amd64" "${PROJECT_NAME}-${VERSION}-osx-x64"
+	install/dist.sh "windows-386" "${PROJECT_NAME}-${VERSION}-windows-x32"
+	install/dist.sh "windows-amd64" "${PROJECT_NAME}-${VERSION}-windows-x64"
 
 docs:
 	cd genman && ${GOCC} build -ldflags "-X main.version=${VERSION}"
