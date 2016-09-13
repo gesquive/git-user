@@ -18,6 +18,13 @@ Alternately, you can download the latest release for your platform from [github]
 Once you have an executable, make sure to copy it somewhere on your path like `/usr/local/bin` or `C:/Program Files/`.
 If on a \*nix/mac system, make sure to run `chmod +x /path/to/git-user`.
 
+### Homebrew
+
+Installing via homebrew is easy:
+'''
+brew install gesquive/git/git-user
+'''
+
 ## Usage
 
 If the `git-user` executable is placed on the path, it can be used as a git command. For example, you would be able to run the command `git user list` to list all of the configured users.
