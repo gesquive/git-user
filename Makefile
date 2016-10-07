@@ -72,13 +72,13 @@ build-all: bootstrap-dist
 	-arch="amd64 386" \
 	-output="dist/{{.OS}}-{{.Arch}}/{{.Dir}}" .
 
-	install/dist.sh "linux-386" "${PROJECT_NAME}-${VERSION}-linux-x32"
-	install/dist.sh "linux-amd64" "${PROJECT_NAME}-${VERSION}-linux-x64"
-	install/dist.sh "darwin-386" "${PROJECT_NAME}-${VERSION}-osx-x32"
-	install/dist.sh "darwin-amd64" "${PROJECT_NAME}-${VERSION}-osx-x64"
-	install/dist.sh "windows-386" "${PROJECT_NAME}-${VERSION}-windows-x32"
-	install/dist.sh "windows-amd64" "${PROJECT_NAME}-${VERSION}-windows-x64"
 dist: build-all ## Cross compile the full distribution
+	pkg/dist.sh "linux-386" "${PROJECT_NAME}-${VERSION}-linux-x32"
+	pkg/dist.sh "linux-amd64" "${PROJECT_NAME}-${VERSION}-linux-x64"
+	pkg/dist.sh "darwin-386" "${PROJECT_NAME}-${VERSION}-osx-x32"
+	pkg/dist.sh "darwin-amd64" "${PROJECT_NAME}-${VERSION}-osx-x64"
+	pkg/dist.sh "windows-386" "${PROJECT_NAME}-${VERSION}-windows-x32"
+	pkg/dist.sh "windows-amd64" "${PROJECT_NAME}-${VERSION}-windows-x64"
 
 docs: ## Compile the documentation
 	cd genman && ${GOCC} build -ldflags "-X main.version=${VERSION}"

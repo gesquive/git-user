@@ -1,6 +1,5 @@
 /bin/*
 vendor/*
-pkg/
 dist/
 
 *.bak

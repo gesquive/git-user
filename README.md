@@ -22,7 +22,8 @@ If on a \*nix/mac system, make sure to run `chmod +x /path/to/git-user`.
 
 Installing via homebrew is easy:
 '''
-brew install gesquive/git/git-user
+brew tap gesquive/git-user https://github.com/gesquive/git-user.git
+brew install gesquive/git-user/git-user
 '''
 
 ## Usage

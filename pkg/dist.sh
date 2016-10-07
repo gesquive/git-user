@@ -37,7 +37,7 @@ cp README.md "${DST}"
 
 if [[ "${DST}" != *"windows"* ]]; then
     cp -r man "${DST}"
-    cp install/install-nix.sh "${DST}/install.sh"
+    cp pkg/install-nix.sh "${DST}/install.sh"
     # echo "Compressing tarbell"
     pushd dist || exit
     rm -f "${DSTNAME}.tar.gz"
