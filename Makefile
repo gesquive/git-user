@@ -1,9 +1,3 @@
-#
-#  Makefile
-#
-#  The kickoff point for all project management commands.
-#
-
 GOCC := go
 
 # Program version
@@ -42,37 +36,26 @@ default: build
 
 help:
 	@echo 'Management commands for git-user:'
-	@echo
-	@echo 'Usage:'
-	@echo '    make build    Compile the project'
-	@echo '    make link     Symlink this project into the GOPATH'
-	@echo '    make test     Run tests on a compiled project'
-	@echo '    make install  Install binary'
-	@echo '    make depends  Download dependencies'
-	@echo '    make docs     Creates documentation'
-	@echo '    make fmt      Reformat the source tree with gofmt'
-	@echo '    make clean    Clean the directory tree'
-	@echo '    make dist     Cross compile the full distribution'
-	@echo
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
-build:
+build: ## Compile the project
 	@echo "building ${OWNER} ${BIN_NAME} ${VERSION}"
 	@echo "GOPATH=${GOPATH}"
 	${GOCC} build -ldflags "-X main.version=${VERSION} -X main.dirty=${GIT_DIRTY}" -o ${BIN_NAME}
 
-install: build
+install: build ## Install the binaries on this computer
 	install -d ${DESTDIR}/usr/local/bin/
 	install -m 755 ./${BIN_NAME} ${DESTDIR}/usr/local/bin/${BIN_NAME}
 	install -m 644 ./man/*.1 ${DESTDIR}/usr/local/share/man/man1/
 
-depends:
+depends: ## Download golang dependencies
 	${GOCC} get -u github.com/Masterminds/glide
 	glide install
 
-test:
+test: ## Run golang tests
 	${GOCC} test ./...
 
-clean:
+clean: ## Clean the directory tree of artifacts
 	${GOCC} clean
 	rm -f ./${BIN_NAME}.test
 	rm -f ./${BIN_NAME}
@@ -89,23 +72,23 @@ build-all: bootstrap-dist
 	-arch="amd64 386" \
 	-output="dist/{{.OS}}-{{.Arch}}/{{.Dir}}" .
 
-dist: build-all
 	install/dist.sh "linux-386" "${PROJECT_NAME}-${VERSION}-linux-x32"
 	install/dist.sh "linux-amd64" "${PROJECT_NAME}-${VERSION}-linux-x64"
 	install/dist.sh "darwin-386" "${PROJECT_NAME}-${VERSION}-osx-x32"
 	install/dist.sh "darwin-amd64" "${PROJECT_NAME}-${VERSION}-osx-x64"
 	install/dist.sh "windows-386" "${PROJECT_NAME}-${VERSION}-windows-x32"
 	install/dist.sh "windows-amd64" "${PROJECT_NAME}-${VERSION}-windows-x64"
+dist: build-all ## Cross compile the full distribution
 
-docs:
+docs: ## Compile the documentation
 	cd genman && ${GOCC} build -ldflags "-X main.version=${VERSION}"
 	mkdir -p man
 	genman/genman ./man
 
-fmt:
+fmt: ## Reformat the source tree with gofmt
 	find . -name '*.go' -not -path './.vendor/*' -exec gofmt -w=true {} ';'
 
-link:
+link: ## Symlink this source tree into the GOPATH
 	# relink into the go path
 	if [ ! $(INSTALL_PATH) -ef . ]; then \
 		mkdir -p `dirname $(INSTALL_PATH)`; \
