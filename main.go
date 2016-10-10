@@ -1,16 +1,13 @@
 package main
 
-import "os"
 import "fmt"
-import "path/filepath"
 import "github.com/gesquive/git-user/cmd"
 
-var version = "v2.0.3"
+var version = "v2.0.4"
 var dirty = ""
 
 func main() {
-	displayVersion := fmt.Sprintf("%s %s%s",
-		filepath.Base(os.Args[0]),
+	displayVersion := fmt.Sprintf("git-user %s%s",
 		version,
 		dirty)
 	cmd.Execute(displayVersion)
