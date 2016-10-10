@@ -1,9 +1,9 @@
 class GitUser < Formula
-  version '2.0.3'
+  version '2.0.4'
   desc "Git plugin that allows you to save multiple user profiles and set them as project defaults"
   homepage "https://github.com/gesquive/git-user"
   url "https://github.com/gesquive/git-user/releases/download/v#{version}/git-user-v#{version}-osx-x64.tar.gz"
-  sha256 "5610ec3d3f5de257227007e0422695bfa94efb301dff3faa28371d9e2cc5ce06"
+  sha256 "f14846abbcd9dedabf1dcd33c9a8e6d7267d43edcd87e30f81b74d1514349ef8"
 
   conflicts_with "git-user"
 
