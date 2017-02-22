@@ -39,11 +39,11 @@ func setRun(cmd *cobra.Command, args []string) {
 	} else {
 		if global {
 			git.SetGlobalUser(profile.User, profile.Email)
-			cli.Info("The global user has been set too '%s <%s>'",
+			cli.Info("The global user has been set to '%s <%s>'",
 				profile.User, profile.Email)
 		} else {
 			gitRepo.SetUser(profile.User, profile.Email)
-			cli.Info("The user for the '%s' repository has been set too '%s <%s>'",
+			cli.Info("The user for the '%s' repository has been set to '%s <%s>'",
 				gitRepo.Name(), profile.User, profile.Email)
 		}
 	}
