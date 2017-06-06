@@ -1,13 +1,14 @@
 package main
 
 import (
-	"../cmd"
 	"fmt"
-	"github.com/spf13/cobra/doc"
 	"io/ioutil"
 	"os"
 	"path/filepath"
 	"regexp"
+
+	"github.com/gesquive/git-user/cmd"
+	"github.com/spf13/cobra/doc"
 )
 
 var version = "2.0.0"
