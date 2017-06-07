@@ -28,16 +28,14 @@ GIT_DIRTY=$(shell test -n "`git status --porcelain`" && echo "+CHANGES" || true)
 
 INSTALL_PATH=$(GOPATH)/${REPO_HOST_URL}/${OWNER}/${PROJECT_NAME}
 
-FIND_DIST:=find * -type d -exec
-
 BUILD_DIR=dist
 
-default: build
+default: test build
 
 .PHONY: help
 help:
 	@echo 'Management commands for ${PROJECT_NAME}:'
-	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | \
+	@grep -E '^[a-zA-Z0-9_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | \
 	 awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
 .PHONY: build
@@ -52,14 +50,18 @@ install: build ## Install the binaries on this computer
 	install -m 755 ./${BIN_NAME} ${DESTDIR}/usr/local/bin/${BIN_NAME}
 	install -m 644 ./man/*.1 ${DESTDIR}/usr/local/share/man/man1/
 
-.PHONY: depends
-depends: ## Download golang dependencies
+.PHONY: deps
+deps: ## Download project dependencies
 	${GOCC} get -u github.com/Masterminds/glide
 	glide install
 
 .PHONY: test
 test: ## Run golang tests
-	${GOCC} test ./...
+	${GOCC} test -excludepkg ./vendor... ./...
+
+.PHONY: bench
+bench: ## Run golang benchmarks
+	${GOCC} test -benchmem -bench=. ./...
 
 .PHONY: clean
 clean: ## Clean the directory tree of artifacts
