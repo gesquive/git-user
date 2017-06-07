@@ -1,4 +1,7 @@
 # git-user
+[![Travis CI](https://img.shields.io/travis/gesquive/git-user/master.svg?style=flat-square)](https://travis-ci.org/gesquive/git-user)
+[![Software License](https://img.shields.io/badge/License-MIT-orange.svg?style=flat-square)](https://github.com/gesquive/git-user/blob/master/LICENSE.md)
+[![GoDoc](https://img.shields.io/badge/godoc-reference-blue.svg?style=flat-square)](https://godoc.org/github.com/gesquive/git-user)
 
 Git plugin that allows you to save multiple user profiles and set them as project defaults
 
@@ -8,7 +11,7 @@ I created this because I have multiple emails that I use for work, personal, and
 ## Installing
 
 ### Compile
-This project requires go1.6 to compile. Just run `go get -u github.com/gesquive/git-user` and the executable should be built for you automatically in your `$GOPATH`.
+This project requires go1.6+ to compile. Just run `go get -u github.com/gesquive/git-user` and the executable should be built for you automatically in your `$GOPATH`.
 
 Optionally you can run `make install` to build and copy the executable to `/usr/local/bin/` with correct permissions.
 
