@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	cli "github.com/gesquive/cli-log"
+	"github.com/gesquive/cli"
 	"github.com/spf13/cobra"
 	"os"
 )
