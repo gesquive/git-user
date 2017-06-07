@@ -1,15 +1,19 @@
-.TH "GIT-USER" "1" "Oct 2016" "git-user v2.0.4" "Git Manual" 
+.TH "GIT-USER" "1" "Jun 2017" "git-user v2.0.5" "Git Manual" 
 .nh
 .ad l
 .SH NAME
 .PP
-git\-user\-list \- List all saved profiles
+git\-user\-del \- Delete a profile
 .SH SYNOPSIS
 .PP
-\fBgit\-user list\fP [OPTIONS]
+\fBgit\-user del PROFILE\_NAME [flags]\fP
 .SH DESCRIPTION
 .PP
-List all of the saved user profiles found in your config.
+Delete a user profile from your config.
+.SH OPTIONS
+.PP
+\fB\-h\fP, \fB\-\-help\fP[=false]
+    help for del
 .SH OPTIONS INHERITED FROM PARENT COMMANDS
 .PP
 \fB\-c\fP, \fB\-\-config\fP="\~/.git\-profiles"

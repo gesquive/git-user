@@ -1,15 +1,19 @@
-.TH "GIT-USER" "1" "Oct 2016" "git-user v2.0.4" "Git Manual" 
+.TH "GIT-USER" "1" "Jun 2017" "git-user v2.0.5" "Git Manual" 
 .nh
 .ad l
 .SH NAME
 .PP
-git\-user\-del \- Delete a profile
+git\-user\-add \- Add a new profile
 .SH SYNOPSIS
 .PP
-\fBgit\-user del\fP [OPTIONS]
+\fBgit\-user add PROFILE\_NAME USER\_NAME EMAIL [flags]\fP
 .SH DESCRIPTION
 .PP
-Delete a user profile from your config.
+Adds a new user profile that can be used in projects to your config.
+.SH OPTIONS
+.PP
+\fB\-h\fP, \fB\-\-help\fP[=false]
+    help for add
 .SH OPTIONS INHERITED FROM PARENT COMMANDS
 .PP
 \fB\-c\fP, \fB\-\-config\fP="\~/.git\-profiles"

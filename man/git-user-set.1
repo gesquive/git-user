@@ -1,15 +1,22 @@
-.TH "GIT-USER" "1" "Oct 2016" "git-user v2.0.4" "Git Manual" 
+.TH "GIT-USER" "1" "Jun 2017" "git-user v2.0.5" "Git Manual" 
 .nh
 .ad l
 .SH NAME
 .PP
-git\-user\-add \- Add a new profile
+git\-user\-set \- Set the profile for the current project
 .SH SYNOPSIS
 .PP
-\fBgit\-user add\fP [OPTIONS]
+\fBgit\-user set PROFILE\_NAME [flags]\fP
 .SH DESCRIPTION
 .PP
-Adds a new user profile that can be used in projects to your config.
+Set the default user profile for the current project.
+.SH OPTIONS
+.PP
+\fB\-G\fP, \fB\-\-global\fP[=false]
+    Apply the profile to the global config
+.PP
+\fB\-h\fP, \fB\-\-help\fP[=false]
+    help for set
 .SH OPTIONS INHERITED FROM PARENT COMMANDS
 .PP
 \fB\-c\fP, \fB\-\-config\fP="\~/.git\-profiles"
