@@ -26,7 +26,7 @@ GIT_DIRTY=$(shell test -n "`git status --porcelain`" && echo "+CHANGES" || true)
 # use the global GOPATH instead
 # GOPATH=$(PWD)
 
-INSTALL_PATH=$(GOPATH)/${REPO_HOST_URL}/${OWNER}/${PROJECT_NAME}
+INSTALL_PATH=$(GOPATH)/src/${REPO_HOST_URL}/${OWNER}/${PROJECT_NAME}
 
 BUILD_DIR=dist
 
@@ -51,17 +51,16 @@ install: build ## Install the binaries on this computer
 	install -m 644 ./man/*.1 ${DESTDIR}/usr/local/share/man/man1/
 
 .PHONY: deps
-deps: ## Download project dependencies
-	${GOCC} get -u github.com/Masterminds/glide
+deps: glide ## Download project dependencies
 	glide install
 
 .PHONY: test
-test: ## Run golang tests
-	${GOCC} test -excludepkg ./vendor... ./...
+test: glide ## Run golang tests
+	${GOCC} test $(shell glide novendor)
 
 .PHONY: bench
-bench: ## Run golang benchmarks
-	${GOCC} test -benchmem -bench=. ./...
+bench: glide ## Run golang benchmarks
+	${GOCC} test -benchmem -bench=. $(shell glide novendor)
 
 .PHONY: clean
 clean: ## Clean the directory tree of artifacts
@@ -71,15 +70,11 @@ clean: ## Clean the directory tree of artifacts
 	rm -rf ./dist
 	rm -f ./genman/genman
 
-.PHONY: bootstrap-dist
-bootstrap-dist:
-	${GOCC} get -u github.com/mitchellh/gox
-
 .PHONY: build-all
-build-all: bootstrap-dist
+build-all: gox
 	gox -verbose \
 	-ldflags "-X main.version=${VERSION} -X main.dirty=${GIT_DIRTY}" \
-	-os="linux darwin windows " \
+	-os="linux darwin windows" \
 	-arch="amd64 386" \
 	-output="dist/{{.OS}}-{{.Arch}}/{{.Dir}}" .
 
@@ -91,6 +86,7 @@ dist: build-all ## Cross compile the full distribution
 	pkg/dist.sh "darwin-amd64" "${PROJECT_NAME}-${VERSION}-osx-x64"
 	pkg/dist.sh "windows-386" "${PROJECT_NAME}-${VERSION}-windows-x32"
 	pkg/dist.sh "windows-amd64" "${PROJECT_NAME}-${VERSION}-windows-x64"
+	cd dist && find . -mindepth 1 -maxdepth 1 -type d -exec rm -rf "{}" \;
 
 .PHONY: docs
 docs: ## Compile the documentation
@@ -103,8 +99,17 @@ fmt: ## Reformat the source tree with gofmt
 	find . -name '*.go' -not -path './.vendor/*' -exec gofmt -w=true {} ';'
 
 .PHONY: link
-link: ## Symlink this source tree into the GOPATH
-	if [ ! $(INSTALL_PATH) -ef . ]; then \
-		mkdir -p `dirname $(INSTALL_PATH)`; \
-		ln -s $(PWD) $(INSTALL_PATH); \
-	fi
+link: $(INSTALL_PATH) ## Symlink this project into the GOPATH
+$(INSTALL_PATH):
+	@mkdir -p `dirname $(INSTALL_PATH)`
+	@ln -s $(PWD) $(INSTALL_PATH) >/dev/null 2>&1
+
+.PHONY: glide
+glide:
+	@command -v glide >/dev/null 2>&1 || \
+	echo "Installing glide" && ${GOCC} get -u github.com/Masterminds/glide
+
+.PHONY: gox
+gox:
+	@command -v gox >/dev/null 2>&1 || \
+	echo "Installing gox" && ${GOCC} get -u github.com/mitchellh/gox
