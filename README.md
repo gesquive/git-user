@@ -1,6 +1,6 @@
 # git-user
 [![Travis CI](https://img.shields.io/travis/gesquive/git-user/master.svg?style=flat-square)](https://travis-ci.org/gesquive/git-user)
-[![Software License](https://img.shields.io/badge/License-MIT-orange.svg?style=flat-square)](https://github.com/gesquive/git-user/blob/master/LICENSE.md)
+[![Software License](https://img.shields.io/badge/License-MIT-orange.svg?style=flat-square)](https://github.com/gesquive/git-user/blob/master/LICENSE)
 [![GoDoc](https://img.shields.io/badge/godoc-reference-blue.svg?style=flat-square)](https://godoc.org/github.com/gesquive/git-user)
 
 Git plugin that allows you to save multiple user profiles and set them as project defaults
