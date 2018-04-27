@@ -86,7 +86,7 @@ Saved Profiles:
 
 # set the current git repository user to the home profile
 $ git user set home
-The user for the 'project' repository has been set too 'Edward Hyde <hyde@night.com>'
+The user for the 'project' repository has been set to 'Edward Hyde <hyde@night.com>'
 
 # list profiles again, notice how the current repository profile is now set
 $ git user
