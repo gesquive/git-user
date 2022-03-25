@@ -1,7 +1,8 @@
 # git-user
-[![Travis CI](https://img.shields.io/travis/gesquive/git-user/master.svg?style=flat-square)](https://travis-ci.org/gesquive/git-user)
 [![Software License](https://img.shields.io/badge/License-MIT-orange.svg?style=flat-square)](https://github.com/gesquive/git-user/blob/master/LICENSE)
-[![GoDoc](https://img.shields.io/badge/godoc-reference-blue.svg?style=flat-square)](https://godoc.org/github.com/gesquive/git-user)
+[![GoDoc](https://img.shields.io/badge/godoc-reference-blue.svg?style=flat-square)](https://pkg.go.dev/github.com/gesquive/git-user)
+[![Build Status](https://img.shields.io/circleci/build/github/gesquive/git-user?style=flat-square)](https://circleci.com/gh/gesquive/git-user)
+[![Coverage Report](https://img.shields.io/codecov/c/gh/gesquive/git-user?style=flat-square)](https://codecov.io/gh/gesquive/git-user)
 
 Git plugin that allows you to save multiple user profiles and set them as project defaults
 
@@ -11,7 +12,7 @@ I created this because I have multiple emails that I use for work, personal, and
 ## Installing
 
 ### Compile
-This project requires go1.6+ to compile. Just run `go get -u github.com/gesquive/git-user` and the executable should be built for you automatically in your `$GOPATH`.
+This project requires go1.18+ to compile. Just run `go install github.com/gesquive/git-user@latest` and the executable should be built for you automatically in your `$GOPATH`.
 
 Optionally you can run `make install` to build and copy the executable to `/usr/local/bin/` with correct permissions.
 
@@ -22,12 +23,10 @@ Once you have an executable, make sure to copy it somewhere on your path like `/
 If on a \*nix/mac system, make sure to run `chmod +x /path/to/git-user`.
 
 ### Homebrew
-
-Installing via homebrew is easy:
-
-```
-brew tap gesquive/git-user https://github.com/gesquive/git-user.git
-brew install gesquive/git-user/git-user
+This app is also avalable from this [homebrew tap](https://github.com/gesquive/homebrew-tap). Just install the tap and then the app will be available.
+```shell
+$ brew tap gesquive/tap
+$ brew install git-user
 ```
 
 ## Usage
@@ -111,6 +110,3 @@ This package is made available under an MIT-style license. See LICENSE.
 ## Contributing
 
 PRs are always welcome!
-
-<!-- TODO: Include a detailed install script in dist -->
-<!-- TODO: Include man page install in install script -->
