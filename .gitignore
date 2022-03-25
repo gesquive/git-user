@@ -1,8 +1,8 @@
 /bin/*
 vendor/*
 dist/
+docs/manpages
 
 *.bak
 
-genman/genman
 git-user

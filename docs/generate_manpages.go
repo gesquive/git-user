@@ -11,7 +11,7 @@ import (
 	"github.com/spf13/cobra/doc"
 )
 
-var version = "2.0.0"
+var version = "v2.0.5-dev"
 
 func usage() {
 	fmt.Println("usage: genman <output_path>")
