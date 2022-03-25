@@ -1,15 +1,16 @@
 package cmd
 
 import (
+	"path/filepath"
+
 	"github.com/gesquive/cli"
 	"github.com/gesquive/git-user/git"
 	"github.com/spf13/cobra"
-	"path/filepath"
 )
 
 var listCmd = &cobra.Command{
 	Use:     "list",
-	Aliases: []string{"l"},
+	Aliases: []string{"l", "ls"},
 	Short:   "List all saved profiles",
 	Long:    `List all of the saved user profiles found in your config.`,
 	Run:     listRun,

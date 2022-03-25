@@ -4,7 +4,7 @@ import "path/filepath"
 import "strings"
 import "github.com/codeskyblue/go-sh"
 
-// Repo allows you to exectue actions on a specific git project
+// Repo allows you to execute actions on a specific git project
 type Repo struct {
 	path string
 }

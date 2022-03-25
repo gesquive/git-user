@@ -1,10 +1,11 @@
 package cmd
 
 import (
+	"os"
+
 	"github.com/gesquive/cli"
 	"github.com/gesquive/git-user/git"
 	"github.com/spf13/cobra"
-	"os"
 )
 
 // setCmd represents the set command
@@ -19,7 +20,7 @@ var setCmd = &cobra.Command{
 
 func init() {
 	RootCmd.AddCommand(setCmd)
-	setCmd.PersistentFlags().BoolVarP(&global, "global", "G", false,
+	setCmd.PersistentFlags().BoolVarP(&useGlobal, "global", "G", false,
 		"Apply the profile to the global config")
 
 }
@@ -37,7 +38,7 @@ func setRun(cmd *cobra.Command, args []string) {
 		cli.Info("You can add the profile with:")
 		cli.Info("  '%s add %s NAME EMAIL'", appName, name)
 	} else {
-		if global {
+		if useGlobal {
 			git.SetGlobalUser(profile.User, profile.Email)
 			cli.Info("The global user has been set to '%s <%s>'",
 				profile.User, profile.Email)

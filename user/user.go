@@ -1,7 +1,9 @@
 package user
 
-import "strings"
-import "os/user"
+import (
+	"os/user"
+	"strings"
+)
 
 // ExpandHomeDir expands ~ in a path to the users home directory
 func ExpandHomeDir(path string) (expandedPath string) {

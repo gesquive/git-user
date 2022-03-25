@@ -17,7 +17,7 @@ var remCmd = &cobra.Command{
 
 func init() {
 	RootCmd.AddCommand(remCmd)
-	remCmd.PersistentFlags().BoolVarP(&global, "global", "G", false,
+	remCmd.PersistentFlags().BoolVarP(&useGlobal, "global", "G", false,
 		"Remove the profile from the global config")
 }
 
@@ -31,7 +31,7 @@ func remRun(cmd *cobra.Command, args []string) {
 		os.Exit(3)
 	}
 
-	if global {
+	if useGlobal {
 		cli.Debug("Removing global user")
 		git.RemoveGlobalUser()
 		cli.Info("Removed user info from the global config")
