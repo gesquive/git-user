@@ -1,0 +1,115 @@
+before:
+  hooks:
+    - go mod tidy
+
+builds:
+- env:
+    - CGO_ENABLED=0
+  ldflags:
+    - -s -w -X main.buildVersion={{.Version}} -X main.buildCommit={{.ShortCommit}} -X main.buildDate={{.Date}}
+  goos:
+    - linux
+    - darwin
+    - windows
+  goarch:
+    - 386
+    - amd64
+    - arm
+    - arm64
+  goarm: [6,7]
+  ignore:
+    - goos: darwin
+      goarch: 386
+    - goos: darwin
+      goarch: arm
+
+snapshot:
+  # Allows you to change the name of the generated snapshot
+  # Default is `SNAPSHOT-{{.ShortCommit}}`.
+  name_template: '{{ .Version }}+{{.ShortCommit}}'
+
+archives:
+- name_template: "{{ .ProjectName }}_v{{ .Version }}_{{ .Os }}_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}"
+  replacements:
+    386: i386
+    amd64: x86_64
+  format_overrides:
+    - goos: windows
+      format: zip
+  files:
+      - LICENSE*
+      - README*
+      - CHANGELOG*
+      - docs/manpages/*
+
+checksum:
+  name_template: '{{ .ProjectName }}_{{ .Version }}_checksums.txt'
+  algorithm: sha256
+  
+changelog:
+  skip: true
+  sort: asc
+  filters:
+    exclude:
+    - '^docs:'
+    - '^test:'
+    - '^blds:'
+
+release:
+  # If set to true, will not auto-publish the release.
+  draft: false
+
+  # If set to auto, will mark the release as not ready for production
+  # in case there is an indicator for this in the tag e.g. v1.0.0-rc1
+  # If set to true, will mark the release as not ready for production.
+  prerelease: auto
+
+  # You can change the name of the GitHub release.
+  name_template: "{{.Tag}}"
+
+brews:
+  -
+    # Github repository to push the tap to.
+    tap:
+      owner: gesquive
+      name: homebrew-tap
+
+    # Git author used to commit to the repository.
+    # Defaults are shown.
+    commit_author:
+      name: release-bot
+      email: gesquive@gmail.com
+
+    # Folder inside the repository to put the formula.
+    # Default is the root folder.
+    folder: Formula
+
+    # Caveats for the user of your binary.
+    # Default is empty.
+    caveats: ""
+
+    # Your app's homepage.
+    # Default is empty.
+    homepage: "https://github.com/gesquive/git-user"
+
+    # Your app's description.
+    # Default is empty.
+    description: "lets you quickly switch between multiple git user profiles"
+
+    # If set to auto, the release will not be uploaded to the homebrew tap
+    # in case there is an indicator for prerelease in the tag e.g. v1.0.0-rc1
+    skip_upload: auto
+
+    # Packages your package depends on.
+    dependencies:
+      - git
+
+    # Packages that conflict with your package.
+    conflicts: []
+
+    # Custom install script for brew.
+    # Default is 'bin.install "program"'.
+    install: |
+      bin.install "git-user"
+      man.mkpath
+      man1.install "docs/manpages/git-user.1", "docs/manpages/git-user-add.1", "docs/manpages/git-user-del.1", "docs/manpages/git-user-edit.1", "docs/manpages/git-user-list.1", "docs/manpages/git-user-rm.1", "docs/manpages/git-user-set.1"
