@@ -3,7 +3,7 @@ package main
 import "github.com/gesquive/git-user/cmd"
 
 var (
-	buildVersion = "v2.0.5-dev"
+	buildVersion = "v2.0.6-dev"
 	buildCommit  = ""
 	buildDate    = ""
 )
