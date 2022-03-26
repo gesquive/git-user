@@ -108,7 +108,7 @@ release-snapshot: ${GORELEASER} ## Cross compile and package to local disk
 	${GORELEASER} release --skip-publish --rm-dist --snapshot
 
 .PHONY: release
-release: ${GORELEASER} ## Cross compile and package the full distribution
+release: docs ${GORELEASER} ## Cross compile and package the full distribution
 	${GORELEASER} release --rm-dist
 
 .PHONY: fmt
@@ -158,4 +158,4 @@ release-docker: init-docker-build ## Build a multi-arch docker manifest and imag
 .PHONY: docs
 docs: ## Compile the documentation
 	mkdir -p docs/manpages
-	${GOCC} run -ldflags "-X main.version=${VERSION}" docs/generate_manpages.go docs/manpages
+	${GOCC} run -ldflags "-X main.version=${MK_VERSION}" docs/generate_manpages.go docs/manpages
